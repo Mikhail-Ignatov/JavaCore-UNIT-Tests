@@ -28,5 +28,17 @@ public class MainTest {
 
         Assertions.assertEquals(expected, result);
     }
+
+    @Test
+    public void taxSavings() {
+
+        Main main = new Main();
+        int taxEarnings = 100, taxEarningsMinunsSpending = 80, expected = 20;
+
+        int result = main.taxSavings(taxEarnings, taxEarningsMinunsSpending);
+
+        Assertions.assertEquals(expected, result);
+    }
+
 }
 

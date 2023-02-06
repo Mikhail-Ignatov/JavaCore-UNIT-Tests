@@ -9,7 +9,7 @@ public class Main {
         int earnings = 0;
         int spendings = 0;
 
-        while (true){
+        while (true) {
 
             System.out.println();
             System.out.println("Выберите операцию и введите ее номер:");
@@ -19,7 +19,7 @@ public class Main {
 
             String input = scanner.nextLine();
 
-            if ("end".equals(input)){
+            if ("end".equals(input)) {
                 break;
             } else {
                 int operation = Integer.parseInt(input);
@@ -40,18 +40,21 @@ public class Main {
                         break;
 
                     case 3:
-                        if (taxEarningsMinunsSpendings(earnings, spendings) > taxEarnings(earnings)){
+                        if (taxEarningsMinunsSpendings(earnings, spendings) > taxEarnings(earnings)) {
                             System.out.println();
                             System.out.println("Мы советуем вам УСН доходы");
                             System.out.println("Ваш налог составит: " + taxEarnings(earnings));
                             System.out.println("Налог на другой системе: " + taxEarningsMinunsSpendings(earnings, spendings));
-                            System.out.println("Экономия: " + (taxEarningsMinunsSpendings(earnings, spendings) - taxEarnings(earnings)));
+                            // System.out.println("Экономия: " + (taxEarningsMinunsSpendings(earnings, spendings) - taxEarnings(earnings)));
+                            System.out.println("Экономия: " + (-taxSavings(taxEarnings(earnings), taxEarningsMinunsSpendings(earnings, spendings))));
                         } else if (taxEarningsMinunsSpendings(earnings, spendings) < taxEarnings(earnings)) {
                             System.out.println();
                             System.out.println("Мы советуем вам УСН доходы минус расходы");
                             System.out.println("Ваш налог составит: " + taxEarningsMinunsSpendings(earnings, spendings));
                             System.out.println("Налог на другой системе: " + taxEarnings(earnings));
-                            System.out.println("Экономия: " + (taxEarnings(earnings) - taxEarningsMinunsSpendings(earnings, spendings)));
+                            //System.out.println("Экономия: " + (taxEarnings(earnings) - taxEarningsMinunsSpendings(earnings, spendings)));
+                            System.out.println("Экономия: " + taxSavings(taxEarnings(earnings), taxEarningsMinunsSpendings(earnings, spendings)));
+
                         } else if (taxEarningsMinunsSpendings(earnings, spendings) == taxEarnings(earnings)) {
                             System.out.println();
                             System.out.println("Обе УСН дают одинаковый налог");
@@ -66,7 +69,7 @@ public class Main {
         System.out.println("Программа завершена!");
     }
 
-    public static int taxEarningsMinunsSpendings (int earnings, int spendings){
+    public static int taxEarningsMinunsSpendings(int earnings, int spendings) {
         int tax = (earnings - spendings) * 15 / 100;
         if (tax > 0) {
             return tax;
@@ -75,13 +78,18 @@ public class Main {
         }
     }
 
-    public static int taxEarnings (int earnings){
+    public static int taxEarnings(int earnings) {
         int taxEarnings = earnings * 6 / 100;
         if (taxEarnings > 0) {
             return taxEarnings;
         } else {
             return 0;
         }
+    }
+
+    public static int taxSavings(int taxEarnings, int taxEarningsMinunsSpendings) {
+        int savings = taxEarnings - taxEarningsMinunsSpendings;
+        return savings;
     }
 
 }
